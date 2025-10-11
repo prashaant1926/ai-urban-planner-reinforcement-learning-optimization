@@ -1,0 +1,11 @@
+[
+  {
+    "id": "1",
+    "hypothesis": "A reinforcement learning system trained on comprehensive urban data and refined through human feedback can generate urban planning proposals that achieve at least 20% reduction in average commute times and 15% reduction in pollution levels compared to existing city layouts."
+  },
+  {
+    "id": "example-1",
+    "hypothesis": "This is an example hypothesis that demonstrates the expected format. Example entries are automatically hidden in the UI.",
+    "_isExample": true
+  }
+]
