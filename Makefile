@@ -1,40 +1,38 @@
-.PHONY: help install test lint format clean run
+# Makefile for the project
 
-# Default target
+.PHONY: help install test clean run lint
+
 help:
-	@echo "Available commands:"
-	@echo "  make install    - Install dependencies"
-	@echo "  make test       - Run tests"
-	@echo "  make lint       - Run linter"
-	@echo "  make format     - Format code"
-	@echo "  make clean      - Clean up generated files"
-	@echo "  make run        - Run the main script"
+	@echo "Available targets:"
+	@echo "  install   - Install dependencies"
+	@echo "  test      - Run unit tests"
+	@echo "  clean     - Remove generated files"
+	@echo "  run       - Run the main experiment"
+	@echo "  lint      - Run linter"
 
-# Install dependencies
 install:
 	pip install -r requirements.txt
 
-# Run tests
 test:
-	pytest tests/ -v --cov=. --cov-report=term-missing
+	python -m pytest tests/ -v
 
-# Run linter
-lint:
-	mypy *.py --ignore-missing-imports
-	ruff check .
+test-basic:
+	python tests/test_utils.py
 
-# Format code
-format:
-	ruff format .
-	ruff check --fix .
-
-# Clean up
 clean:
-	rm -rf __pycache__ .pytest_cache .mypy_cache .ruff_cache
-	rm -rf *.egg-info dist build
-	find . -type f -name "*.pyc" -delete
-	find . -type d -name "__pycache__" -delete
+	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+	find . -type f -name "*.pyc" -delete 2>/dev/null || true
+	find . -type f -name "*.pyo" -delete 2>/dev/null || true
+	rm -rf .pytest_cache/ .cache/
 
-# Run main script
 run:
+	bash run_experiment.sh
+
+lint:
+	python -m flake8 *.py --max-line-length=100
+
+check-data:
+	python data_loader.py
+
+demo:
 	python hello.py

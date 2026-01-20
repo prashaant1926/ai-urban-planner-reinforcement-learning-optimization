@@ -1,82 +1,73 @@
-"""Tests for utility functions."""
+#!/usr/bin/env python3
+"""Unit tests for utility functions."""
 
-import pytest
-import tempfile
-import os
-import json
-
-# Import will work when utils.py is in the path
 import sys
+import os
+
+# Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from utils import chunk_list, flatten_dict, load_json, save_json
+from utils import (
+    count_tokens_approx,
+    format_number,
+    truncate_string,
+    ProgressTracker
+)
 
 
-class TestChunkList:
-    """Tests for chunk_list function."""
-
-    def test_even_chunks(self):
-        result = chunk_list([1, 2, 3, 4, 5, 6], 2)
-        assert result == [[1, 2], [3, 4], [5, 6]]
-
-    def test_uneven_chunks(self):
-        result = chunk_list([1, 2, 3, 4, 5], 2)
-        assert result == [[1, 2], [3, 4], [5]]
-
-    def test_single_chunk(self):
-        result = chunk_list([1, 2, 3], 10)
-        assert result == [[1, 2, 3]]
-
-    def test_empty_list(self):
-        result = chunk_list([], 5)
-        assert result == []
+def test_count_tokens_approx():
+    """Test approximate token counting."""
+    text = "Hello world"  # 11 chars
+    tokens = count_tokens_approx(text)
+    assert tokens == 2, f"Expected 2, got {tokens}"
+    print("test_count_tokens_approx: PASSED", flush=True)
 
 
-class TestFlattenDict:
-    """Tests for flatten_dict function."""
-
-    def test_simple_dict(self):
-        d = {"a": 1, "b": 2}
-        assert flatten_dict(d) == {"a": 1, "b": 2}
-
-    def test_nested_dict(self):
-        d = {"a": {"b": {"c": 1}}}
-        assert flatten_dict(d) == {"a.b.c": 1}
-
-    def test_mixed_dict(self):
-        d = {"a": 1, "b": {"c": 2, "d": 3}}
-        result = flatten_dict(d)
-        assert result == {"a": 1, "b.c": 2, "b.d": 3}
-
-    def test_custom_separator(self):
-        d = {"a": {"b": 1}}
-        assert flatten_dict(d, sep="/") == {"a/b": 1}
+def test_format_number():
+    """Test number formatting."""
+    assert format_number(1000) == "1,000"
+    assert format_number(1000000) == "1,000,000"
+    assert format_number(42) == "42"
+    print("test_format_number: PASSED", flush=True)
 
 
-class TestJsonIO:
-    """Tests for JSON load/save functions."""
+def test_truncate_string():
+    """Test string truncation."""
+    short = "Hello"
+    long_text = "This is a very long string that should be truncated"
 
-    def test_save_and_load(self):
-        with tempfile.TemporaryDirectory() as tmpdir:
-            filepath = os.path.join(tmpdir, "test.json")
-            data = {"name": "test", "values": [1, 2, 3]}
+    assert truncate_string(short, max_length=10) == "Hello"
+    assert len(truncate_string(long_text, max_length=20)) == 20
+    assert truncate_string(long_text, max_length=20).endswith("...")
+    print("test_truncate_string: PASSED", flush=True)
 
-            save_json(data, filepath)
-            loaded = load_json(filepath)
 
-            assert loaded == data
+def test_progress_tracker():
+    """Test progress tracker."""
+    tracker = ProgressTracker(total=10, name="Test")
+    assert tracker.total == 10
+    assert tracker.current == 0
 
-    def test_nested_directory_creation(self):
-        with tempfile.TemporaryDirectory() as tmpdir:
-            filepath = os.path.join(tmpdir, "a", "b", "c", "test.json")
-            data = {"key": "value"}
+    tracker.update(5)
+    assert tracker.current == 5
+    print("test_progress_tracker: PASSED", flush=True)
 
-            save_json(data, filepath)
-            assert os.path.exists(filepath)
 
-            loaded = load_json(filepath)
-            assert loaded == data
+def run_all_tests():
+    """Run all tests."""
+    print("=" * 50, flush=True)
+    print("RUNNING TESTS", flush=True)
+    print("=" * 50, flush=True)
+
+    test_count_tokens_approx()
+    test_format_number()
+    test_truncate_string()
+    test_progress_tracker()
+
+    print("=" * 50, flush=True)
+    print("ALL TESTS PASSED!", flush=True)
+    print("=" * 50, flush=True)
 
 
 if __name__ == "__main__":
-    pytest.main([__file__, "-v"])
+    run_all_tests()

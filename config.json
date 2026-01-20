@@ -1,0 +1,21 @@
+{
+  "project_name": "tinker-experiments",
+  "version": "1.0.0",
+  "settings": {
+    "debug": true,
+    "log_level": "INFO",
+    "max_retries": 3,
+    "timeout_seconds": 300
+  },
+  "paths": {
+    "data_dir": "./artifacts/dataset",
+    "output_dir": "./artifacts/metrics",
+    "checkpoint_dir": "./artifacts/checkpoints"
+  },
+  "training": {
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "epochs": 10,
+    "warmup_steps": 100
+  }
+}

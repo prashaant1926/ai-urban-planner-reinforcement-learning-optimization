@@ -1,27 +1,22 @@
 #!/usr/bin/env python3
-"""A simple hello world script demonstrating basic Python."""
+"""A simple hello world script demonstrating basic Python structure."""
 
-import sys
-from datetime import datetime
-
-
-def greet(name: str = "World") -> str:
-    """Return a greeting message."""
-    return f"Hello, {name}!"
+def greet(name: str) -> str:
+    """Return a greeting message for the given name."""
+    return f"Hello, {name}! Welcome to the workspace."
 
 
 def main():
     print("=" * 50, flush=True)
     print("SCRIPT: hello.py", flush=True)
-    print(f"TIME: {datetime.now().isoformat()}", flush=True)
+    print("PURPOSE: Demonstrate basic Python functionality", flush=True)
     print("=" * 50, flush=True)
 
-    name = sys.argv[1] if len(sys.argv) > 1 else "World"
-    message = greet(name)
-    print(message, flush=True)
+    names = ["Alice", "Bob", "Charlie"]
+    for name in names:
+        print(greet(name), flush=True)
 
-    print("", flush=True)
-    print("SUCCESS: Script completed!", flush=True)
+    print("\nDone!", flush=True)
 
 
 if __name__ == "__main__":
