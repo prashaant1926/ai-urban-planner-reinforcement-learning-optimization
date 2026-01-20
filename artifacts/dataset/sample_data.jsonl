@@ -1,0 +1,5 @@
+{"messages": [{"role": "user", "content": "What is the capital of France?"}, {"role": "assistant", "content": "The capital of France is Paris."}]}
+{"messages": [{"role": "user", "content": "Explain photosynthesis in simple terms."}, {"role": "assistant", "content": "Photosynthesis is how plants make food. They use sunlight, water, and carbon dioxide to create sugar (glucose) for energy, and release oxygen as a byproduct."}]}
+{"messages": [{"role": "user", "content": "What is 15 multiplied by 7?"}, {"role": "assistant", "content": "15 multiplied by 7 equals 105."}]}
+{"messages": [{"role": "user", "content": "Who wrote Romeo and Juliet?"}, {"role": "assistant", "content": "Romeo and Juliet was written by William Shakespeare, believed to have been composed between 1591 and 1596."}]}
+{"messages": [{"role": "user", "content": "What causes rain?"}, {"role": "assistant", "content": "Rain is caused by the water cycle. Water evaporates from surfaces, rises as water vapor, condenses into clouds when it cools, and falls back to Earth as precipitation when the water droplets become heavy enough."}]}

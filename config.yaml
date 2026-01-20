@@ -1,0 +1,45 @@
+# Configuration file for the project
+# This file contains settings for training and evaluation
+
+project:
+  name: "demo-project"
+  version: "1.0.0"
+  description: "A demonstration project"
+
+model:
+  name: "Qwen3-8B"
+  max_sequence_length: 4096
+  dtype: "bfloat16"
+
+training:
+  batch_size: 8
+  learning_rate: 2.0e-5
+  num_epochs: 3
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  gradient_accumulation_steps: 4
+
+  optimizer:
+    type: "adamw"
+    beta1: 0.9
+    beta2: 0.999
+    epsilon: 1.0e-8
+
+  scheduler:
+    type: "cosine"
+    min_lr_ratio: 0.1
+
+data:
+  train_path: "artifacts/dataset/train.jsonl"
+  val_path: "artifacts/dataset/val.jsonl"
+  max_samples: null
+
+output:
+  checkpoint_dir: "artifacts/checkpoints"
+  log_dir: "artifacts/logs"
+  save_every: 500
+  eval_every: 100
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
