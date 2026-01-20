@@ -46,3 +46,5 @@ artifacts/checkpoints/*.pt
 artifacts/checkpoints/*.bin
 *.log
 .cache/
+
+.claude/
